@@ -3,7 +3,14 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const routes = [{
+// 路由点击两次报错解决
+export const routerPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error => error);
+};
+
+
+const constRoutes = [{
     path: "/",
     redirect: "login"
   },
@@ -15,10 +22,11 @@ const routes = [{
   {
     path: '/dashboard',
     name: 'dashboard',
+    component: () => import('@/views/dashboard/index.vue'),
     children: [{
         path: '/home',
         name: 'home',
-        compontent:()=>import('@/components/home/homeindex'),
+        component: () => import('@/components/home/homeindex'),
         meta: {
           title: '首页',
           icon: '',
@@ -58,22 +66,11 @@ const routes = [{
   }
 ];
 
-const asyncRoute = []
-
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes: constRoutes
 });
 
-router.beforeEach((to, from, next) => {
-
-  if (to.path=="/dashboard") {
-    // 请求后端数据
-    console.log("getRouter");
-  }else{
-    next()
-  }
-})
 
 export default router;

@@ -14,6 +14,21 @@ Vue.use(ElementUi, {
 Vue.prototype.$axios = axios
 // axios.defaults.baseURL = ""
 
+// router.beforeEach((to, from, next) => {
+
+//   if (to.path != "/login") {
+//     // 请求后端数据
+//     axios.get('/api/getMenu').then(res=>{
+//       console.log(res.data.list);
+//     })
+//     next()
+//   } else {
+//     next()
+//   }
+// })
+
+
+
 new Vue({
   router,
   store,
