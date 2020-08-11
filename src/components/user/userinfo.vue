@@ -1,6 +1,6 @@
 <template>
 <el-container>
-    菜单
+    用户信息
 </el-container>
 </template>
 <script>
